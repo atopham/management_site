@@ -46,6 +46,7 @@ function MetaMaskConnector() {
           console.error(e.message)
           return
       })
+      console.log(accounts[0])
       return accounts[0]
     }
 
@@ -92,9 +93,10 @@ function MetaMaskConnector() {
         <div>
             {loggedIn ? (
                 <div>
-                    <div>{account}</div>
+                    {/* <div>{account}</div> */}
                     {/* <div>{balanceE}</div> */}
                     {/* <div>{account === addresses[0] ? "your account is whitelisted" : "Your account isn't whitelisted"}</div> */}
+                    
                     <div>{loggedIn ? "You are logged in" : "You are not logged in"}</div>
                     <div>
                         <h2><Link to="/info" state={loggedIn} >Info</Link></h2>
