@@ -37,3 +37,4 @@ If you navigate to the "EditConfig" page, you'll see a form with three fields. Y
 If the "Running" attribute is true, the trading bot is "running" which means if you open the console log, you'll see "running..." every five seconds. If "Running" is not checked, you'll see "Trading bot is turned off" in the console log.
 You can turn the "trading bot" on or off by checking the "Running" attribute and clicking submit.
 
+The backend is largely used as an api server that the user doesn't interact with. If you navigate to http://127.0.0.1:8000/api, however, you can see what is served by the api server.
