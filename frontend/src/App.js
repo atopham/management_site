@@ -34,7 +34,8 @@ class App extends Component {
   }
   
   evalRunning = async() => {
-    const { data } = await axios.get('/api/config/')
+    // const { data } = await axios.get('/api/config/')
+    const { data } = await axios.get("./lib/json/running.json")
     let info = data[0].running
     this.setState({ running: info }, () => {
       if (this.state.running) {
