@@ -1,15 +1,15 @@
 import axios from 'axios';
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import BottomNav from '../Components/BottomNav';
 
 
 function ConfigEditScreen() {
     const location = useLocation();
-    const loggedIn = location.state;
+    // const loggedIn = location.state;
     // const [id, setId] = useState("");
     const [running, setRunning] = useState("");
     const [max_allocations, setMax_allocations] = useState("");
-    const [config, setConfig] = useState("");
     const isFirstRender = useRef(true)
 
     useEffect(() => {
@@ -19,7 +19,7 @@ function ConfigEditScreen() {
     }, [])
 
     useEffect(() => {
-        if (isFirstRender.current == true) {
+        if (isFirstRender.current === true) {
             isFirstRender.current = false
             return
         }
@@ -28,11 +28,9 @@ function ConfigEditScreen() {
 
     }, [running])
 
-
-
     const getConfig = async() => {
         await axios.get("api/config/")
-            .then((response) => { setConfig(response.data); setMax_allocations(response.data[0].max_allocations)})
+            .then((response) => setMax_allocations(response.data[0].max_allocations))
             .catch((error) => console.log(error))
     }
 
@@ -56,54 +54,50 @@ function ConfigEditScreen() {
         e.preventDefault()
         postConfig(`[{ "max_allocations": ${max_allocations} }]`)
 
-        // postConfig([
-        //     {"max_allocations":max_allocations}
-        // ])
     }
 
     return (
 
-            <div>
+            <div className="wide-centered">
                 <div>
-                    <div>{String(loggedIn)}</div>
-                    <h2><Link to="/info" state={loggedIn}>Info</Link></h2>
-                    <h2><Link to="/metamask">MetaMask</Link></h2>
-                    <h1>Config</h1>
-                    <h3>Running value: {String(running)}</h3>
-                    {/* <h2>Running: {String(this.state.running)}</h2> */}
-                    {/* <h2>max_allocations: {this.state.max_allocations}</h2>
-                    <h2>Password: {this.state.view_password}</h2> */}
+
+                    <h1 className="title">Edit Configuration</h1>
+                    {/* <h3>Running value: {String(running)}</h3> */}
                 </div>
-                <div>
+                {/* <div>
                     {JSON.stringify(config)}
-                </div>
+                </div> */}
 
 
-                <div>
-                    <div>Running:</div>
+                <div className="vert-item-margin">
+                    {/* <div>Bot Running Live</div> */}
+                    <label htmlFor="running" className='label-input-spacing'>Bot Running Live</label>
                     <label className="switch">
-                    <input type="checkbox" checked={running} onChange={() => setRunning(!running) } />
+                    <input name="running" type="checkbox" checked={running} onChange={() => setRunning(!running) } />
                     <span className="slider round"></span>
                     </label>
                 </div>
 
-                <div>
+                <div className="vert-item-margin">
                     <form className='form' onSubmit={submitHandler}>
-                        {/* <div>
-                            <label htmlFor='running'>Running:</label>
-                            <input id="running" name="running" type="checkbox" checked={running} onChange={(event) => setRunning(event.target.checked)}/>
-                        </div> */}
                         <div>
-                            <label htmlFor='max_allocations'>max_allocations:</label>
-                            <input id="max_allocations" name="max_allocations" type="text" value={max_allocations} onChange={(event) => setMax_allocations(event.target.value)}/>
+                            <label className="label-input-spacing" htmlFor='max_allocations'>Max Allocation</label>
+                            <input  className="label-input-spacing" id="max_allocations" name="max_allocations" type="text" value={max_allocations} onChange={(event) => setMax_allocations(event.target.value)}/>
+                            <button type="submit" className='button'>Change Allocation</button>
                         </div>
-                        {/* <div>
-                            <label htmlFor='view_password'>view_password:</label>
-                            <input id="view_password" name="view_password" type="text" value={view_password} onChange={(event) => setView_password(event.target.value)}/>
-                        </div> */}
-                        <button type="submit" className='btn btn-primary'>Submit</button>
+                        
                     </form>
                 </div>  
+
+                {/* <div className='bottom-nav'>
+                    <button><Link to="/info" className="override-link" state={loggedIn}>Info</Link></button>
+                    <button><Link to="/metamask" className="override-link">Configurations</Link></button>
+                    <button><Link to="/metamask" className="override-link">Authentication</Link></button>
+                    <button><Link to="/metamask" className="override-link">History</Link></button>
+                </div> */}
+                {/* <BottomNav loggedIn={loggedIn}/> */}
+                <BottomNav/>
+
             </div>
 
         )

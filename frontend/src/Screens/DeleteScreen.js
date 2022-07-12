@@ -1,26 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import  { useLocation, useNavigate } from 'react-router-dom';
 
-function EditAddress() {
+function DeleteScreen() {
     const location = useLocation();
     const addressobject = location.state;
-    const [nickname, setNickName] = useState(addressobject.nickname);
-    const [address, setAddress] = useState(addressobject.address);
-
     const [index, setIndex] = useState(0);
     const [nicknames, setNickNames] = useState([]);
     const [addresses, setAddresses] = useState([]);
-
     const navigate = useNavigate();
 
     useEffect(() => {
         let indexholder;
         getObjects()
-            .then((response) => indexholder = response.indexOf(address))
+            .then((response) => indexholder = response.indexOf(addressobject.address))
             .then(() => setIndex(indexholder))
             .catch((error) => console.log(error))
-    }, [address])    
+    }, [addressobject.address])    
 
     const getObjects = async() => {
         let objectsholder;
@@ -53,47 +49,38 @@ function EditAddress() {
 
     const updateAddress = async() => {
         let output = "[";
-        nicknames[index] = nickname;
-        addresses[index] = address;
         let addressesLength = addresses.length;
         let count = Array.from({length: addressesLength}, (_, i) => i)
         count.map((i) => (
-            output = output + (`{"nickname":"${nicknames[i]}", "address":"${addresses[i]}"}${i === addressesLength - 1 ? "" : ","}`)
+            i === index ? (
+                ""
+            ) : (
+                output = output + (`{"nickname":"${nicknames[i]}", "address":"${addresses[i]}"}${i === addressesLength - 1 || ( i === index - 1 && index === addressesLength - 1) ? "" : ", "}`)
+            )
         ))
         output = output + "]"
+        console.log("output: ", output)
         postLogin(output)
     }
 
-    const submitHandler = (e) => {
+    const deleteHandler = (e) => {
         e.preventDefault()
         updateAddress();
         navigate("/metamask");
     }
 
+    const noHandler = (e) => {
+        e.preventDefault()
+        navigate("/metamask");
+    }
+
     return (
-        <div>
-            <button className="back-button"><Link to="/metamask" className="override-link">Back</Link></button>
-            <div className="wide-centered">
-                
-                <h1>Edit Address</h1>
-
-                <form onSubmit={submitHandler} autoComplete="off">
-                    <div className="crud-form">
-                        <span>
-                            <label htmlFor="nickname">Nickname:</label>
-                            <input id="nickname" name="nickname" type="text" value={nickname} onChange={(event) => setNickName(event.target.value)}/>
-                        </span>
-                        <span>
-                            <label htmlFor="address">Address:</label>
-                            <input id="address" name="address" type="text" value={address} onChange={(event) => setAddress(event.target.value)}/>
-                        </span>
-                    </div>
-
-                    <button type="submit">Submit</button>
-                </form>
-            </div>
+        <div className='wide-centered vert-align bottom-nav'>
+            <h3>Are you sure you want to delete the address "{addressobject.address}"" with nickname "{addressobject.nickname}"?</h3>
+            <button onClick={deleteHandler} className="">Yes</button>
+            <button onClick={noHandler} className="">No</button>
         </div>
     )
 }
 
-export default EditAddress;
+export default DeleteScreen;

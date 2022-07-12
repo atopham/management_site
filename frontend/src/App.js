@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from 'react';
+import React, { Component } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import axios from 'axios';
 import InfoScreen from './Screens/InfoScreen';
@@ -6,6 +6,8 @@ import ConfigEditScreen from './Screens/ConfigEditScreen';
 import MetaMaskConnector from './Screens/MetaMaskConnector';
 import CreateAddress from './Screens/CreateAddress';
 import EditAddress from './Screens/EditAddress';
+import DeleteScreen from './Screens/DeleteScreen';
+import HomeScreen from './Screens/HomeScreen';
 
 
 // class App extends Component {
@@ -53,13 +55,14 @@ class App extends Component {
         <div>
           <main>
             <Routes>
-              <Route path="/" element={<Navigate replace to="/metamask"/>}/>
+              <Route path="/" element={<Navigate replace to="/home"/>}/>
+              <Route path='/home' element={<HomeScreen/>}/>
               <Route path="/info" element={<InfoScreen/>}/>
               <Route path="/editconfig" element={<ConfigEditScreen/>}/>
               <Route path="/metamask" element={<MetaMaskConnector/>}/>
               <Route path="/createaddress" element={<CreateAddress/>}/>
               <Route path="/editaddress" element={<EditAddress/>}/>
-
+              <Route path="/deleteaddress" element={<DeleteScreen/>}/>
             </Routes>
           </main>
         </div>

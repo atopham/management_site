@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import axios from 'axios';
+import BottomNav from "../Components/BottomNav";
 
 function InfoScreen() {
     const location = useLocation();
-    const loggedIn = location.state;
-    const [info, setInfo] = useState("");
+    // const { loggedIn } = location.state;
+    const [currentTradeEntries, setCurrentTradeEntries] = useState([]);
 
     useEffect(() => {
         getInfo()
@@ -13,36 +14,43 @@ function InfoScreen() {
 
     const getInfo = async() => {
         await axios.get('api/info/')
-            // .then((response) => console.log(response.data))
-            .then((response) => setInfo(response.data))
+            .then((response) => setCurrentTradeEntries(Object.entries(Object.values(response.data)[0])))
             .catch((error) => console.log(error))
     }
 
-    // const getData = async () => {
-    //     await axios.get("/api/info/")
-    //         // .then((response) => this.setState({ Info: response.data[0].data }))
-    //         .then((response) => setInfo(response.data[0].data))
-    //         .catch((error) => console.log(error));
-    // };
+    let value = 0;
+    currentTradeEntries.map((entry) => (
+        value = value + parseInt(entry[1])
+    ))
+
 
         return (
-            <div>
-                <div>{String(loggedIn)}</div>
-                <h2><Link to="/editconfig" state={loggedIn}>Edit Config</Link></h2>
-                <h2><Link to="/metamask">MetaMask</Link></h2>
+            <div className="wide-centered">
+                <h1 className="title">Account Information</h1>
 
-                <h3>Trade Information</h3>
                 <div>
-                    {JSON.stringify(info)}
+                    <span className="purple-text bigger-text">Total Value: {value}</span>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td className="purple-text bigger-text">Position</td>
+                                <td className="purple-text bigger-text">Amount</td>
+                                <td className="purple-text bigger-text">$ Value</td>
+                            </tr>
+                            {currentTradeEntries.map((entry) => (
+                            <tr key={entry}>
+                                <td className='table-item-text'>{entry[0]}</td>
+                                <td className='table-item-text'>{entry[1]}</td>
+                                <td className='table-item-text'>{entry[1]}</td>
+                            </tr>
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
 
                 <div>
-                    {/* {JSON.stringify(info.current_trades)} */}
-                    {/* {info.current_trades.map((trade) => (
-                        <div>
-                            {JSON.stringify(trade)}
-                        </div>
-                    ))} */}
+                    {/* <BottomNav loggedIn={loggedIn}/> */}
+                    <BottomNav/>
                 </div>
             </div>
         )

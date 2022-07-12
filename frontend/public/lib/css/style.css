@@ -60,3 +60,285 @@
   .slider.round:before {
     border-radius: 50%;
   }
+
+
+
+  
+body {
+  background-color: #38323C;
+  color: #E6DCF0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  height: 100%;
+  padding-bottom: 100px;
+  /* margin:0; */
+}
+
+.error {
+  color: red;
+}
+
+
+
+
+
+
+/* .step {
+  margin: 50px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+form {
+  margin:auto;
+  margin-bottom: 100px;
+  width:40vw;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+form fieldset {
+  padding: 4px 12px;
+  display: flex;
+  flex-direction: column;
+  border-style: dashed;
+  border-radius: 6px;
+  border-color: #7B61FF;
+  border-width: 2px;
+}
+
+.step-header {
+  margin: 16px 16px;
+  font-size: x-large;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;;
+}
+
+.step-title {
+  color: #BD80ED;
+  font-weight: normal;
+  margin-bottom: 8px;
+}
+
+.input-blob {
+  display: flex;
+  flex-direction: column;
+  margin: 8px 0px;
+}
+
+.input-blob label {
+  color: #A5A6F6;
+  margin-bottom:4px;
+}
+
+input {
+  padding: 8px;
+  border: 0;
+  border-radius: 4px;
+  font-size: medium;
+}
+
+.input-blob .input-subtitle {
+  margin-top: 4px;
+  font-size: 12px;
+}
+
+button {
+  font-size: medium;
+}
+
+.button {
+  padding: 8px 24px;
+  border: 0;
+  border-radius: 8px;
+  border-top: 1px solid #ffffff22;
+  font-size: medium;
+  background-color: #0048d9;
+  color: white;
+  color:#0048d9;
+  font-weight: bold;
+  margin: auto;
+  text-align: center;
+  text-decoration: none;
+  box-shadow: 0px 1px 2px #00000088;
+}
+
+.wide-centered {
+  margin: auto;
+  width: 800px;
+  width: 80%;
+  text-align: center;
+}
+
+.top-blurb {
+  margin-top: 30vh;
+}
+
+.top-blurb .subtitle {
+  margin-top: 40px;
+  margin-bottom: 70px;
+}
+
+.top-blurb .arrow {
+  margin-bottom: 80px;
+}
+
+.title {
+  margin: 36px 0;
+  font-size: 72px;
+  color: white;
+  text-shadow: 0 0 4px black;
+}
+
+.title em {
+  color: #bd80ed;
+  font-style: normal;
+  font-weight: normal;
+}
+
+.header-pink {
+  color: #ba3bce;
+  font-size: x-large;
+  font-weight: normal;
+  text-shadow: 0 0 2px black;
+}
+
+a {
+  color: #BD80ED;
+}
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  width: 70%;
+  margin: 0 15%;
+  margin-bottom: 64px;
+  display: flex;
+  text-align: center;
+  justify-content: space-between;
+  gap: 8px;
+  
+}
+
+.bottom-nav button {
+  padding: 8px;
+  flex-basis: 140px;
+  margin: 0 60px 0 60px;
+  margin: auto;
+  margin: 0 5% 0 5%;
+}
+
+.infogrid table {
+  width: 100%;
+}
+
+td {
+  background-color: white;
+  color: black;
+} */
+
+
+.wide-centered {
+  margin: auto;
+  width: 80%;
+  text-align: center;
+}
+
+.label-input-spacing {
+  margin: 0 40px 0 0;
+}
+
+.vert-item-margin {
+  margin: 6% 0 6% 0;
+}
+
+.title {
+  margin: 36px 0;
+  font-size: 48px;
+  color: white;
+  text-shadow: 0 0 4px black;
+}
+
+button {
+  font-size: medium;
+  padding: 5px 30px 5px 30px;
+  border: 0;
+  border-radius: 8px;
+  border-top: 1px solid #ffffff22;
+  font-size: medium;
+  background-color: #0048d9;
+  color: white;
+  font-weight: bold;
+  /* margin: auto; */
+  text-align: center;
+  text-decoration: none;
+  box-shadow: 0px 1px 2px #00000088;
+}
+
+.crud-form span {
+  display: block;
+  margin: 40px 0 40px 0;
+}
+
+.crud-form label {
+  width: 20px;
+  margin-right: 80px;
+}
+
+.back-button {
+  margin: 20px 0 0 20px;
+}
+
+.vert-align {
+  margin-top: 20%;
+}
+
+.bottom-nav {
+  position: relative;
+  bottom: 5%;
+  margin-top: 20%;
+  text-align: center;
+}
+
+.bottom-nav-home {
+  position: relative;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.purple-text {
+  -webkit-text-stroke: 0.75px black;
+  color: rgb(233, 56, 233);  
+}
+
+.bigger-text {
+  font-size: 1.5em;
+}
+
+.bottom-nav button {
+  margin: 0 3% 0 3%;
+}
+
+.bottom-nav-home button {
+  margin: 0 3% 0 3%;
+}
+
+table {
+  margin: auto;
+  border-collapse: separate;
+  border-spacing: 20px;
+}
+
+table td {
+  padding: 10px 10px;
+}
+
+.table-item-text {
+  background: #d2d2d2;
+  color:#000000;
+}
+
+.override-link {
+  text-decoration: none;
+  color: white;
+}
+
