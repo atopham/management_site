@@ -1,4 +1,1 @@
-[
-    { "nickname":"Andrew", "address":"0x8bab6e76a9c584beee70aeb0c88bee9d24193bd1"},
-    { "nickname":"Alex", "address":"0x3b1e80675b26d795331a19f60730fb06aaeb355c"}
-]
+[{"nickname":"Andrew", "address":"0x8bab6e76a9c584beee70aeb0c88bee9d24193bd1"}, {"nickname":"Alex", "address":"0x3b1e80675b26d795331a19f60730fb06aaeb355c"}, {"nickname":"test1", "address":"asdf123qwer4567"}, {"nickname":"test2", "address":"qwer123asdf789Cosito"}, {"nickname":"Another", "address":"zxcv98123"}]
