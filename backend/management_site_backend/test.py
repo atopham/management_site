@@ -14,8 +14,13 @@
 import json
 import os
 
-f = open('backend/management_site_backend/config.json', 'r')
-data = json.load(f)
-print(data)
+f = open('backend/management_site_backend/json/config.json', 'w')
+f.write('[{\"thingy\":\"Something\"}]')
+f.close()
+
+f = open('backend/management_site_backend/json/config.json', 'r')
+print(f.read())
+# data = json.load(f)
+# print(data)
 
 # print(os.listdir())

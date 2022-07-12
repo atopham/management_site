@@ -22,16 +22,20 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework import routers
+# from rest_framework import routers
 from management_site_backend import views
 
-router = routers.DefaultRouter()
-router.register(r'info', views.InfoPageView, 'info')
-router.register(r'config', views.ConfigPageView, 'config')
-router.register(r'loginaddress', views.LoginAddressPageView, 'loginaddress')
+# router = routers.DefaultRouter()
+# router.register(r'info', views.InfoPageView, 'info')
+# router.register(r'config', views.ConfigPageView, 'config')
+# router.register(r'loginaddress', views.LoginAddressPageView, 'loginaddress')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include(router.urls)),
+    # path('api/', include(router.urls)),
+    path('api/config/', views.ConfigPageView, name='config'),
+    path('api/info/', views.InfoPageView, name='info'),
+    path('api/running/', views.RunningView, name="running"),
+    path('api/login/', views.LoginView, name="login")
 ]
 

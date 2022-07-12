@@ -25,8 +25,8 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.evalRunning()
-    setInterval(() => this.evalRunning(), 5000)
+    // this.evalRunning()
+    // setInterval(() => this.evalRunning(), 5000)
   }
 
   run_cycle() {
@@ -35,7 +35,8 @@ class App extends Component {
   
   evalRunning = async() => {
     // const { data } = await axios.get('/api/config/')
-    const { data } = await axios.get("./lib/json/running.json")
+    const { data } = await axios.get("api/running/")
+      .catch((error) => console.log(error))
     let info = data[0].running
     this.setState({ running: info }, () => {
       if (this.state.running) {

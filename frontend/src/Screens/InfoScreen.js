@@ -12,7 +12,8 @@ function InfoScreen() {
     }, [])
 
     const getInfo = async() => {
-        await axios.get('./lib/json/info.json')
+        await axios.get('api/info/')
+            // .then((response) => console.log(response.data))
             .then((response) => setInfo(response.data))
             .catch((error) => console.log(error))
     }
@@ -35,6 +36,14 @@ function InfoScreen() {
                     {JSON.stringify(info)}
                 </div>
 
+                <div>
+                    {/* {JSON.stringify(info.current_trades)} */}
+                    {/* {info.current_trades.map((trade) => (
+                        <div>
+                            {JSON.stringify(trade)}
+                        </div>
+                    ))} */}
+                </div>
             </div>
         )
     };

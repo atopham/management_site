@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 
@@ -10,55 +10,55 @@ function ConfigEditScreen() {
     const [running, setRunning] = useState("");
     const [max_allocations, setMax_allocations] = useState("");
     const [config, setConfig] = useState("");
+    const isFirstRender = useRef(true)
 
     useEffect(() => {
         getConfig()
+        getRunning()
+
     }, [])
 
-    // const updateConfig = async(config) => {
-    //     await axios.put(`/api/config/${config.id}/`, config);
-    // }
+    useEffect(() => {
+        if (isFirstRender.current == true) {
+            isFirstRender.current = false
+            return
+        }
+
+        postRunning(`[{"running":${running}}]`)
+
+    }, [running])
+
+
 
     const getConfig = async() => {
-        await axios.get("./lib/json/config.json")
+        await axios.get("api/config/")
             .then((response) => { setConfig(response.data); setMax_allocations(response.data[0].max_allocations)})
             .catch((error) => console.log(error))
     }
 
     const postConfig = async(config) => {
-        await axios.post("", config)
+        await axios.post("api/config/", config)
             .catch((error) => console.log(error))
     }
 
-    // const getConfig = async() => {
-    //     await axios.get('/api/config')
-    //         .then((response) => { setId(response.data[0].id); return response })
-    //         .then((response) => { setRunning(response.data[0].running); return response })
-    //         .then((response) => { setMax_allocations(response.data[0].max_allocations); return response })
-    //         .then((response) => { setView_password(response.data[0].view_password); return response })
-    //         .catch((error) => console.log(error))
-    // }
+    const getRunning = async() => {
+        await axios.get("api/running/")
+            .then((response) => setRunning(response.data[0].running))
+            .catch((error) => console.log(error))
+    }
 
-    // const onChangeHandler = (event) => {
-    //     const target = event.target;
-    //     const value = target.type === "checkbox" ? target.checked : target.value;
-    //     const name = target.name;
-
-    //     this.setState({
-    //         [name] : value
-    //     });
-    // }
-
-
+    const postRunning = async(running) => {
+        await axios.post("api/running/", running)
+            .catch((error) => console.log(error))
+    }
 
     const submitHandler = (e) => {
         e.preventDefault()
-        // updateConfig({ id:id, running:running, max_allocations:max_allocations, view_password:view_password })
-        postConfig(
-            [
-                { "max_allocations": max_allocations }
-            ] 
-        )
+        postConfig(`[{ "max_allocations": ${max_allocations} }]`)
+
+        // postConfig([
+        //     {"max_allocations":max_allocations}
+        // ])
     }
 
     return (
@@ -69,6 +69,7 @@ function ConfigEditScreen() {
                     <h2><Link to="/info" state={loggedIn}>Info</Link></h2>
                     <h2><Link to="/metamask">MetaMask</Link></h2>
                     <h1>Config</h1>
+                    <h3>Running value: {String(running)}</h3>
                     {/* <h2>Running: {String(this.state.running)}</h2> */}
                     {/* <h2>max_allocations: {this.state.max_allocations}</h2>
                     <h2>Password: {this.state.view_password}</h2> */}

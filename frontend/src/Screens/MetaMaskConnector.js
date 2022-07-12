@@ -20,8 +20,6 @@ function MetaMaskConnector() {
     
             getLoginAddressObjects().then((res) => { setAddressObject(res[0]); return res })
                 .then((res) => (setAddresses(res[1])))
-                // .then(() => console.log("addressObject",addressObject))
-                // .then(() => console.log("addresses",addresses))
                 .then(() => evalLoggedIn.then((res) => setLoggedIn(res)))
                 .catch((error) => console.log(error))
         } catch {
@@ -46,7 +44,7 @@ function MetaMaskConnector() {
           console.error(e.message)
           return
       })
-      console.log(accounts[0])
+    //   console.log(accounts[0])
       return accounts[0]
     }
 
@@ -55,7 +53,7 @@ function MetaMaskConnector() {
             let web3 = new Web3(window.ethereum);
             let balW = await web3.eth.getBalance(account)
             // console.log("Wei from getBalance", balW)
-            let balE = await web3.utils.fromWei(balW, 'ether');
+            let balE = web3.utils.fromWei(balW, 'ether');
             return balE;
           } catch {
             console.log("this method won't get the balance");
@@ -63,12 +61,14 @@ function MetaMaskConnector() {
     }
 
     const getLoginAddressObjects = async() => {
+
         let loginaddressReceiver = []
         let loginaddressobjects = []
-        await axios.get('api/loginaddress/')
-            .then((response) => loginaddressReceiver.push(response.data))
+        await axios.get('api/login/')
+            // .then((response) => console.log(response.data))
+            .then((response) => loginaddressReceiver = response.data)
             .then(() => {
-                loginaddressReceiver[0].map((addressobject) => (
+                loginaddressReceiver.map((addressobject) => (
                     loginaddressobjects.push(addressobject)
                 ))
             })
@@ -79,7 +79,6 @@ function MetaMaskConnector() {
         ))
 
         return [ loginaddressobjects, loginaddresses ]
-
     }
 
     const deleteAddress = async(addressObject) => {
@@ -117,7 +116,7 @@ function MetaMaskConnector() {
                             </thead>
                             <tbody>
                                 {addressObject.map((address) => (
-                                <tr key={address.id}>
+                                <tr key={address.address}>
                                     <td>{address.nickname}</td>
                                     <td>{address.address}</td>
                                     <td><Link to="/editaddress" state={address}>Edit</Link></td>
@@ -131,6 +130,9 @@ function MetaMaskConnector() {
             ) : (
                 <div>Please Login to MetaMask</div>
             )}
+            {/* <div>
+
+            </div> */}
         </div>
     )
 }
