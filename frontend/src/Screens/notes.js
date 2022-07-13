@@ -23,7 +23,14 @@
         //     console.log(e)
         // }
 
-
+    // const evalLoggedIn = new Promise((resolve, reject) => {
+    //     if (account === addresses[0]) {
+    //         resolve(true)
+    //     } else {
+    //         resolve(false)
+    //     }
+    //     reject("Error")
+    // })
 
         // await axios
         //     .get('/api/data')

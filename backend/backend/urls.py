@@ -36,6 +36,8 @@ urlpatterns = [
     path('api/config/', views.ConfigPageView, name='config'),
     path('api/info/', views.InfoPageView, name='info'),
     path('api/running/', views.RunningView, name="running"),
-    path('api/login/', views.LoginView, name="login")
+    path('api/login/', views.LoginView, name="login"),
+    path('api/logincredentials/', views.LoginCredentials, name="logincredentials"),
+    path('api/history/', views.HistoryView, name="history")
 ]
 

@@ -12,7 +12,7 @@ function HomeScreen() {
                 <button><Link to="/info" className="override-link">Info</Link></button>
                 <button><Link to="/editconfig" className="override-link">Configurations</Link></button>
                 <button><Link to="/metamask" className="override-link">Authentication</Link></button>
-                <button><Link to="/metamask" className="override-link">History</Link></button>
+                <button><Link to="/history" className="override-link">History</Link></button>
             </div>
         </div>
     )

@@ -86,5 +86,40 @@ def LoginView(request):
         pass
 
 
+@api_view(['POST'])
+def LoginCredentials(request):
+    if request.method == "POST":
+        address = str(request.data)
+        cleanList = address.split("'")
+        cleanAddress = cleanList[1]
+
+        print("here is the address: " + address)
+
+        f = open('management_site_backend/json/login.json', 'r')
+        datos = f.read()
+        data = json.loads(datos)
+        res = "no token"
+        for obj in data:
+            if obj['address'] == cleanAddress:
+                # print(cleanAddress + " is whitelisted" )
+                res = "token"
+            else:
+                pass
+        f.close()
+
+        return Response(res)
+
+@api_view(['GET', 'POST'])
+def HistoryView(request):
+    if request.method == 'POST':
+
+        return Response("history post")
+
+    elif request.method == 'GET':
+        f = open('management_site_backend/json/history.json', 'r')
+        data = json.load(f)
+        return Response(data)
+    else:
+        pass
 
 

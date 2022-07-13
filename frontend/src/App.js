@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
+// import React, { Component } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import axios from 'axios';
 import InfoScreen from './Screens/InfoScreen';
@@ -8,48 +9,49 @@ import CreateAddress from './Screens/CreateAddress';
 import EditAddress from './Screens/EditAddress';
 import DeleteScreen from './Screens/DeleteScreen';
 import HomeScreen from './Screens/HomeScreen';
+// import UserLogin from './Components/UserLogin';
+import useToken from './Components/useToken';
+import LoginScreen from './Screens/LoginScreen';
+import HistoryScreen from './Screens/HistoryScreen';
 
+function App () {
 
-// class App extends Component {
-//   constructor(props){
-//     super(props)
-//     this.state = {
-//       running:false
-//     }
-//   }
+  // const isFirstRender = useRef(true);
+  const [running, setRunning] = useState("")
+  const { token, setToken } = useToken();
 
-class App extends Component {
-  constructor(props){
-    super(props)
-    this.state = {
-      running:"empty"
+  useEffect(() => {
+    evalRunning()
+    // setInterval(() => evalRunning(), 5000)
+    if (running) {
+      run_cycle()
+    } else {
+      console.log("trading bot is turned off")
     }
-  }
+  },[running])
 
-  componentDidMount() {
-    // this.evalRunning()
-    // setInterval(() => this.evalRunning(), 5000)
-  }
+  // useEffect(() => {
+  //   evalRunning()
+  //   // setInterval(() => evalRunning(), 5000)
+  //   setInterval(() => setRender(!render), 2000)
+  // },[render])
+  
 
-  run_cycle() {
+  const run_cycle = () => {
     console.log("running...")
   }
   
-  evalRunning = async() => {
-    // const { data } = await axios.get('/api/config/')
-    const { data } = await axios.get("api/running/")
+  const evalRunning = async() => {
+    await axios.get("api/running/")
+      // .then((response) => { console.log(response.data); return response })
+      .then((response) => setRunning(response.data[0].running))
       .catch((error) => console.log(error))
-    let info = data[0].running
-    this.setState({ running: info }, () => {
-      if (this.state.running) {
-        this.run_cycle()
-      } else {
-        console.log("trading bot is turned off")
-      }
-    });
   }
 
-  render() {
+  if (!token) {
+    return <LoginScreen setToken={setToken} />
+  }
+
     return (
       <BrowserRouter>
         <div>
@@ -63,12 +65,14 @@ class App extends Component {
               <Route path="/createaddress" element={<CreateAddress/>}/>
               <Route path="/editaddress" element={<EditAddress/>}/>
               <Route path="/deleteaddress" element={<DeleteScreen/>}/>
+              <Route path="/history" element={<HistoryScreen/>}/>
             </Routes>
           </main>
         </div>
       </BrowserRouter>
     );
-  }
+
+
 }
 
 export default App;
@@ -166,4 +170,21 @@ export default App;
 //     //     console.log("Trading bot is turned off")
 //     //   }, 5000)
 //     // }
+//   }
+
+// class App extends Component {
+//   constructor(props){
+//     super(props)
+//     this.state = {
+//       running:false
+//     }
+//   }
+
+// class App extends Component {
+//   constructor(props){
+//     super(props)
+//     this.state = {
+//       running: false,
+
+//     }
 //   }

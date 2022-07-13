@@ -18,9 +18,12 @@ function EditAddress() {
         let indexholder;
         getObjects()
             .then((response) => indexholder = response.indexOf(address))
+            // .then(() => console.log("address: ",address))
+            // .then(() => console.log("indexholder: ",indexholder))
             .then(() => setIndex(indexholder))
             .catch((error) => console.log(error))
-    }, [address])    
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])    
 
     const getObjects = async() => {
         let objectsholder;
@@ -53,6 +56,7 @@ function EditAddress() {
 
     const updateAddress = async() => {
         let output = "[";
+        // console.log("index: " , index)
         nicknames[index] = nickname;
         addresses[index] = address;
         let addressesLength = addresses.length;
@@ -61,6 +65,8 @@ function EditAddress() {
             output = output + (`{"nickname":"${nicknames[i]}", "address":"${addresses[i]}"}${i === addressesLength - 1 ? "" : ","}`)
         ))
         output = output + "]"
+        // console.log("index: ", index)
+        // console.log(output)
         postLogin(output)
     }
 
